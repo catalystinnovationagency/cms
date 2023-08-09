@@ -1,0 +1,50 @@
+<html>
+	<head>
+		 <link id="debug-bar-css" href="../../plugins/cookie-notice/style.css" rel="stylesheet">
+	</head>
+<body>
+	
+	<div id="cookie-notice">
+
+		<div class="fixed-bottom p-4">
+			
+			<div class="toast bg-dark bg-opacity-50 text-white w-25 mw-100 float-end" role="alert" data-autohide="false">
+					<div class="toast-body p-4 d-flex flex-column">
+						<h4>Cookie Warning</h4>
+						<p>
+						This website stores data such as cookies to enable site functionality including analytics and personalization. By using this website, you automatically accept that we use cookies. 
+						</p>
+						<div class="ml-auto">
+							<button type="button" class="btn btn-outline-light mr-3" id="btnDeny" data-bs-dismiss="toast" onclick="setCookieConsent('deny')">
+								Deny
+							</button>
+							<button type="button" class="btn btn-light" id="btnAccept" data-bs-dismiss="toast" onclick="setCookieConsent('allow')">
+								Accept
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>  
+
+	</div>
+	
+<script>
+let notice = $("#cookie-notice .toast");
+if (localStorage) {
+
+	let cookie = localStorage.getItem("cookie-notice", "unset");
+
+	if (!cookie && notice.length) {
+		notice.addClass("show");
+	}
+}
+
+function setCookieConsent(value) {
+	return localStorage.setItem('cookie-notice', value);
+}
+</script>	
+</body>	
+</html>
+
+
+			

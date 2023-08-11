@@ -4,7 +4,7 @@ FROM php:7.3-apache
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
-    libjpeg-dev \
+    libjpeg62-turbo-dev \
     libfreetype6-dev \
     libxml2-dev \
     zip \
@@ -15,8 +15,8 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libonig-dev
 
-# Configure GD extension with JPEG and FreeType support
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+# Configure GD extension
+RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
 
 # Install PHP extensions
 RUN docker-php-ext-install mysqli xml libxml pcre zip dom curl gettext gd

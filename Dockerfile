@@ -15,11 +15,11 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libonig-dev
 
-# Install PHP extensions
-RUN docker-php-ext-install mysqli mysqlnd xml libxml pcre zip dom curl gettext gd
+# Configure GD extension with JPEG and FreeType support
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
-# If imagick is required, you can also install it
-# RUN apt-get install -y libmagickwand-dev && pecl install imagick && docker-php-ext-enable imagick
+# Install PHP extensions
+RUN docker-php-ext-install mysqli xml libxml pcre zip dom curl gettext gd
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite

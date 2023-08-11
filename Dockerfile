@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
 
 # Install PHP extensions
-RUN docker-php-ext-install mysqli xml libxml pcre zip dom curl gettext gd
+RUN docker-php-ext-install mysqli pcre zip dom curl gettext gd
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite

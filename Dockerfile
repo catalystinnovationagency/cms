@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libonig-dev \
     nginx \
-    mysql-client
+    default-mysql-client # <-- Change this line
 
 # Install GD extension
 RUN docker-php-ext-configure gd --with-jpeg --with-freetype && \

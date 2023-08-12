@@ -14,10 +14,12 @@ RUN apt-get update && apt-get install -y \
     gettext \
     libcurl4-openssl-dev \
     libonig-dev \
-    nginx
+    nginx \
+    mysql-client
 
 # Install GD extension
-RUN docker-php-ext-configure gd && docker-php-ext-install gd
+RUN docker-php-ext-configure gd --with-jpeg --with-freetype && \
+    docker-php-ext-install gd
 
 # Install other PHP extensions
 RUN docker-php-ext-install mysqli mysqlnd xml libxml pcre zip dom curl gettext

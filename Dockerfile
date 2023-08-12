@@ -16,11 +16,11 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     nginx
 
-# Configure GD extension
-RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
+# Install GD extension
+RUN docker-php-ext-configure gd && docker-php-ext-install gd
 
-# Install PHP extensions
-RUN docker-php-ext-install mysqli mysqlnd xml libxml pcre zip dom curl gettext gd
+# Install other PHP extensions
+RUN docker-php-ext-install mysqli mysqlnd xml libxml pcre zip dom curl gettext
 
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/sites-available/vvveb

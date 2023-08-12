@@ -1,5 +1,5 @@
-# Use PHP 7.3 with Apache
-FROM php:7.3-apache
+# Use PHP 7.4 with Nginx
+FROM php:7.4-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -13,22 +13,21 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     gettext \
     libcurl4-openssl-dev \
-    libonig-dev
+    libonig-dev \
+    nginx
 
 # Configure GD extension
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
 
 # Install PHP extensions
-RUN docker-php-ext-install mysqli pcre zip dom curl gettext gd
+RUN docker-php-ext-install mysqli mysqlnd xml libxml pcre zip dom curl gettext gd
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
+# Copy Nginx configuration file
+COPY nginx.conf /etc/nginx/sites-available/vvveb
+RUN ln -s /etc/nginx/sites-available/vvveb /etc/nginx/sites-enabled/vvveb
 
-# Copy application source code to Apache document root
+# Copy application source code
 COPY . /var/www/html
 
-# Expose port 80
-EXPOSE 80
-
-# Start Apache
-CMD ["apache2-foreground"]
+# Start Nginx and PHP-FPM
+CMD service nginx start && php-fpm

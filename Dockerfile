@@ -15,14 +15,14 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libonig-dev \
     nginx \
-    default-mysql-client # <-- Change this line
+    default-mysql-client
 
 # Install GD extension
 RUN docker-php-ext-configure gd --with-jpeg --with-freetype && \
     docker-php-ext-install gd
 
 # Install other PHP extensions
-RUN docker-php-ext-install mysqli mysqlnd xml libxml pcre zip dom curl gettext
+RUN docker-php-ext-install mysqli xml pcre zip dom curl gettext
 
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/sites-available/vvveb

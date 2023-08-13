@@ -54,7 +54,7 @@ class Php {
 		$domain = preg_replace('/^[^\.]*\./', '', $host);
 		@ini_set('session.cookie_domain', ".$domain");
 		session_set_cookie_params(0, '/', ".$domain");
-		$sessionName = session_name(str_replace('.', '', $domain));
+		$sessionName = session_name('sess_' . str_replace('.', '', $domain));
 
 		return session_start();
 	}
